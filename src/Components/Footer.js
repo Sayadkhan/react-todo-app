@@ -1,0 +1,11 @@
+const Footer = () => {
+  return (
+    <footer className="footer bg-gray-900 container mx-auto text-center p-10 text-sm text-teal-600 border-t border-dashed border-teal-600">
+      <p>
+        &copy; {new Date().getFullYear()} React Todo App. All rights reserved.
+      </p>
+    </footer>
+  );
+};
+
+export default Footer;

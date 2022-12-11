@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import AddTask from "./Components/AddTask";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
+import TaskList from "./Components/TaskList";
 
-function App() {
+const App = () => {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    //getting data form the server
+    featchingData();
+  }, []);
+
+  // fetching data
+  const featchingData = async () => {
+    try {
+      const res = await fetch(
+        "https://aluminum-delicate-snowshoe.glitch.me/tasks"
+      );
+      if (!res.ok) throw new Error("Something went worng!");
+      const data = await res.json();
+      setTasks(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper bg-gradient-to-t from-gray-900 to-teal-900 min-h-screen text-xl text-gray-100 flex flex-col py-10">
+      <Header />
+      <AddTask />
+      <TaskList tasks={tasks} />
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
